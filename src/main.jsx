@@ -23,50 +23,12 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        path: "/",
-        element: <Home />,
-      },
-      {
-        path: "/list",
-        element: (
-          <Protected>
-            <EmployeeList />
-          </Protected>
-        ),
-      },
-      {
-        path: "/create",
-        element: (
-          <Protected>
-            <EmployeeCreator />
-          </Protected>
-        ),
-      },
-      {
-        path: "/update/:id",
-        element: (
-          <Protected>
-            <EmployeeUpdater />
-          </Protected>
-        ),
-      },
-      {
-        path: "/sign-in",
-        element: (
-          <GuestsOnly>
-            <SignIn />
-          </GuestsOnly>
-        ),
-      },
-      {
-        path: "/sign-up",
-        element: (
-          <GuestsOnly>
-            <SignUp />
-          </GuestsOnly>
-        ),
-      }
+      { path: "/", element: <Home />, },
+      { path: "/list", element: <Protected> <EmployeeList /> </Protected> },
+      { path: "/create", element: <Protected> <EmployeeCreator /> </Protected> },
+      { path: "/update/:id", element: <Protected> <EmployeeUpdater /> </Protected> },
+      { path: "/sign-in", element: <GuestsOnly> <SignIn /> </GuestsOnly> },
+      { path: "/sign-up", element: <GuestsOnly> <SignUp /> </GuestsOnly> }
     ],
   },
 ]);
