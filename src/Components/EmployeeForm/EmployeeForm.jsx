@@ -3,7 +3,16 @@ const EmployeeForm = ({ onSave, disabled = false, employee, onCancel }) => {
     e.preventDefault();
     const formData = new FormData(e.target);
     const entries = [...formData.entries()];
-    const employee = Object.fromEntries(entries);
+    const data = Object.fromEntries(entries);
+    const employee = {
+      name: {
+        firstName: data.firstName,
+        middleName: data.middleName,
+        lastName: data.lastName
+      },
+      level: data.level,
+      position: data.position
+    };
     return onSave(employee);
   };
 
