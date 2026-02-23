@@ -56,65 +56,6 @@ const EmployeeList = () => {
     setSortConfig(updateConfig);
   };
 
-  /* useEffect(() => {
-    if (!sortConfig.sortBy) return;
-
-    const listToSort = [...(filteredEmployees.length ? filteredEmployees : employees)];
-
-    function nameToArray(obj) {
-      return obj.name.split(" ");
-    }
-
-    const compareStrings = (a, b) => sortConfig.order === "asc" ? a.localeCompare(b) : b.localeCompare(a);
-
-    let sorted;
-
-    if (sortConfig.sortBy === "firstName") {
-      sorted = listToSort.sort((a, b) =>
-        compareStrings(
-          nameToArray(a)[0].toLowerCase(),
-          nameToArray(b)[0].toLowerCase()
-        )
-      );
-    } else if (sortConfig.sortBy === "middleName") {
-      sorted = listToSort.sort((a, b) => {
-        const aArr = nameToArray(a);
-        const bArr = nameToArray(b);
-
-        const aHasMiddle = aArr.length > 2;
-        const bHasMiddle = bArr.length > 2;
-
-        if (aHasMiddle && !bHasMiddle) return -1;
-        if (!aHasMiddle && bHasMiddle) return 1;
-
-        if (aHasMiddle && bHasMiddle) {
-          return compareStrings(aArr[1].toLowerCase(), bArr[1].toLowerCase());
-        }
-
-        return 0;
-      });
-    } else if (sortConfig.sortBy === "lastName") {
-      sorted = listToSort.sort((a, b) => {
-        const aArr = nameToArray(a);
-        const bArr = nameToArray(b);
-
-        return compareStrings(
-          aArr[aArr.length - 1].toLowerCase(),
-          bArr[bArr.length - 1].toLowerCase()
-        )
-      });
-    } else {
-      sorted = listToSort.sort((a, b) => {
-        const valueA = a[sortConfig.sortBy];
-        const valueB = b[sortConfig.sortBy];
-        if (!valueA || !valueB) return 0;
-        return compareStrings(valueA, valueB);
-      });
-    }
-
-    setSortedEmployees(sorted);
-  }, [sortConfig, employees, filteredEmployees]); */
-
   useEffect(() => {
     if (!sortConfig.sortBy) return;
     const listToSort = filteredEmployees.length > 0 ? filteredEmployees : employees;
