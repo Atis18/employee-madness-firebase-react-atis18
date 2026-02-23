@@ -10,12 +10,33 @@ const EmployeeForm = ({ onSave, disabled = false, employee, onCancel }) => {
   return (
     <form onSubmit={onSubmit}>
       <div className="mb-3">
-        <label className="form-label" htmlFor="name">Name:</label>
+        <label className="form-label" htmlFor="firstName">First Name:</label>
         <input
           className="form-control"
-          defaultValue={employee ? employee.name : null}
-          name="name"
-          id="name"
+          defaultValue={employee ? employee.name.firstName : null}
+          name="firstName"
+          id="firstName"
+          required
+        />
+      </div>
+
+      <div className="mb-3">
+        <label className="form-label" htmlFor="middleName">Middle Name:</label>
+        <input
+          className="form-control"
+          defaultValue={employee ? employee.name.middleName : null}
+          name="middleName"
+          id="middleName"
+        />
+      </div>
+
+      <div className="mb-3">
+        <label className="form-label" htmlFor="lastName">Last Name:</label>
+        <input
+          className="form-control"
+          defaultValue={employee ? employee.name.lastName : null}
+          name="lastName"
+          id="lastName"
           required
         />
       </div>
@@ -38,7 +59,7 @@ const EmployeeForm = ({ onSave, disabled = false, employee, onCancel }) => {
           defaultValue={employee ? employee.position : null}
           name="position"
           id="position"
-          
+
         />
       </div>
 

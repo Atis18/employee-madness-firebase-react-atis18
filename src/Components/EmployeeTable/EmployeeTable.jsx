@@ -14,7 +14,7 @@ const EmployeeTable = ({ employees, onDelete }) => (
     <tbody>
       {employees.map((employee) => (
         <tr key={employee.id}>
-          <td>{employee.name}</td>
+          <td>{Object.values(employee.name).join(" ")}</td>
           <td>{employee.level}</td>
           <td>{employee.position}</td>
           <td>

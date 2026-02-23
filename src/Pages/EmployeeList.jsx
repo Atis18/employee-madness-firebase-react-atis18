@@ -7,7 +7,7 @@ const EmployeeList = () => {
   const [employees, setEmployees] = useState([]);
   const [filteredEmployees, setFilteredEmployees] = useState([]);
   const [sortedEmployees, setSortedEmployees] = useState([]);
-  const [sortConfig, setSortConfig] = useState({ sortBy: "firstName", order: "asc" });
+  const [sortConfig, setSortConfig] = useState({ sortBy: "name.firstName", order: "asc" });
   const [loading, setLoading] = useState(true);
 
   const deleteEmployee = (id) =>
@@ -56,7 +56,7 @@ const EmployeeList = () => {
     setSortConfig(updateConfig);
   };
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (!sortConfig.sortBy) return;
 
     const listToSort = [...(filteredEmployees.length ? filteredEmployees : employees)];
@@ -113,7 +113,33 @@ const EmployeeList = () => {
     }
 
     setSortedEmployees(sorted);
-  }, [sortConfig, employees, filteredEmployees]);
+  }, [sortConfig, employees, filteredEmployees]); */
+
+  useEffect(() => {
+    if (!sortConfig.sortBy) return;
+    const listToSort = filteredEmployees.length > 0 ? filteredEmployees : employees;
+
+    const getValue = (obj, path) => path.split(".").reduce((acc, key) => acc?.[key], obj);
+
+    const direction = sortConfig.order === "asc" ? 1 : -1;
+
+    const sorted = [...listToSort].sort((a, b) => {
+      let valueA = getValue(a, sortConfig.sortBy);
+      let valueB = getValue(b, sortConfig.sortBy);
+
+      if (valueA == null && valueB == null) return 0;
+      if (valueA == null) return 1;
+      if (valueB == null) return -1;
+
+      if (typeof valueA === "number" && typeof valueB === "number") {
+        return (valueA - valueB) * direction;
+      }
+
+      return valueA.toString().toLowerCase().localeCompare(valueB.toString().toLowerCase()) * direction;
+    });
+
+    setSortedEmployees(sorted);
+  }, [sortConfig, employees, filteredEmployees])
 
   if (loading) {
     return <Loading />;
@@ -138,9 +164,9 @@ const EmployeeList = () => {
         <div className="d-flex flex-column gap-2 mb-3">
           <label>Order By</label>
           <select className="form-control" name="sortBy" value={sortConfig.sortBy} onChange={handleChange}>
-            <option value="firstName">First name</option>
-            <option value="middleName">Middle name</option>
-            <option value="lastName">Last name</option>
+            <option value="name.firstName">First name</option>
+            <option value="name.middleName">Middle name</option>
+            <option value="name.lastName">Last name</option>
             <option value="position">Position</option>
             <option value="level">Level</option>
           </select >

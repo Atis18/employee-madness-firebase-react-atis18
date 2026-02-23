@@ -17,7 +17,11 @@ const getSeedData = async () => {
   ]);
 
   return names.map((name) => ({
-    name,
+    name: {
+      firstName: name.split(" ")[0],
+      middleName: name.split(" ").length > 2 ? name.split(" ").slice(1, -1) : null,
+      lastName: name.split(" ")[name.split(" ").length - 1]
+    },
     level: pick(levels),
     position: pick(positions),
     created: Date.now()
