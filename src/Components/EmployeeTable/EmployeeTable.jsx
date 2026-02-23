@@ -14,12 +14,12 @@ const EmployeeTable = ({ employees, onDelete }) => (
     <tbody>
       {employees.map((employee) => (
         <tr key={employee.id}>
-          <td>{Object.values(employee.name).join(" ")}</td>
+          <td>{`${employee.name.firstName} ${employee.name.middleName ?? ""} ${employee.name.lastName}`}</td>
           <td>{employee.level}</td>
           <td>{employee.position}</td>
           <td>
             <div className="btn-group">
-              <Link to={`/update/${employee.id}`} className="btn btn-primary">
+              <Link to={`/updateEmployee/${employee.id}`} className="btn btn-primary">
                 Update
               </Link>
               <DeleteButton employeeId={employee.id} onDelete={onDelete} />

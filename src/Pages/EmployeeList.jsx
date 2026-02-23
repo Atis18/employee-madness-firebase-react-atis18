@@ -82,9 +82,7 @@ const EmployeeList = () => {
     setSortedEmployees(sorted);
   }, [sortConfig, employees, filteredEmployees])
 
-  if (loading) {
-    return <Loading />;
-  }
+  if (loading) return <Loading />;
 
   return (
     <>

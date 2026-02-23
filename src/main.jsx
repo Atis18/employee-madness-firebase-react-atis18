@@ -8,6 +8,9 @@ import Home from "./Pages/Home";
 import EmployeeList from "./Pages/EmployeeList";
 import EmployeeCreator from "./Pages/EmployeeCreator";
 import EmployeeUpdater from "./Pages/EmployeeUpdater";
+import EquipmentList from "./Pages/EquipmentList";
+import EquipmentCreator from "./Pages/EquipmentCreator";
+import EquipmentUpdater from "./Pages/EquipmentUpdater";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
 
@@ -24,9 +27,15 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <Home />, },
+
       { path: "/list", element: <Protected> <EmployeeList /> </Protected> },
-      { path: "/create", element: <Protected> <EmployeeCreator /> </Protected> },
-      { path: "/update/:id", element: <Protected> <EmployeeUpdater /> </Protected> },
+      { path: "/createEmployee", element: <Protected> <EmployeeCreator /> </Protected> },
+      { path: "/updateEmployee/:id", element: <Protected> <EmployeeUpdater /> </Protected> },
+
+      { path: "/equipments", element: <Protected> <EquipmentList /> </Protected> },
+      { path: "/createEquipment", element: <Protected> <EquipmentCreator /> </Protected> },
+      { path: "/updateEquipment/:id", element: <Protected> <EquipmentUpdater /> </Protected> },
+
       { path: "/sign-in", element: <GuestsOnly> <SignIn /> </GuestsOnly> },
       { path: "/sign-up", element: <GuestsOnly> <SignUp /> </GuestsOnly> }
     ],
