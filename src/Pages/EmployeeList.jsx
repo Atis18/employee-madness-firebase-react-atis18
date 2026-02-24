@@ -10,6 +10,20 @@ const EmployeeList = () => {
   const [sortConfig, setSortConfig] = useState({ sortBy: "name.firstName", order: "asc" });
   const [loading, setLoading] = useState(true);
 
+  /* PAGINATION */
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
+
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentEmployees = sortedEmployees.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(sortedEmployees.length / itemsPerPage);
+
+  const handlePageChange = (pageNumber) => {
+    setCurrentPage(pageNumber);
+  };
+  /* PAGINATION */
+
   const deleteEmployee = (id) =>
     setEmployees((employees) =>
       employees.filter((employee) => employee.id !== id)
@@ -44,6 +58,7 @@ const EmployeeList = () => {
       emp.level.toLowerCase().includes(level.trim().toLowerCase())
     );
     setFilteredEmployees(filtered);
+    setCurrentPage(1);
   }
 
   const handleChange = (e) => {
@@ -119,7 +134,34 @@ const EmployeeList = () => {
           Search
         </button>
       </form>
-      <EmployeeTable onDelete={deleteEmployee} employees={sortedEmployees} />
+      <EmployeeTable onDelete={deleteEmployee} employees={currentEmployees} />
+
+      <div className="d-flex justify-content-center mt-3 gap-2">
+        <button
+          className="btn btn-outline-primary"
+          disabled={currentPage === 1}
+          onClick={() => setCurrentPage(prev => prev - 1)}
+        >
+          Previous
+        </button>
+        {Array.from({ length: totalPages }, (_, i) => (
+          <button
+            key={i + 1}
+            className={`btn ${currentPage === i + 1 ? "btn-primary" : "btn-outline-primary"}`}
+            onClick={() => handlePageChange(i + 1)}
+          >
+            {i + 1}
+          </button>
+        ))}
+        <button
+          className="btn btn-outline-primary"
+          disabled={currentPage === totalPages}
+          onClick={() => setCurrentPage(prev => prev + 1)}
+        >
+          Next
+        </button>
+      </div>
+
     </>
   );
 };
