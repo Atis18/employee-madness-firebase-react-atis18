@@ -1,5 +1,10 @@
 {
   "rules": {
+    "employees":{
+      "list":{
+        ".indexOn":["fullName"]
+      }
+    },
     ".read": "auth.uid !== null",
     ".write": "auth.uid !== null"
   }

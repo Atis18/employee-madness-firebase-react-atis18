@@ -5,6 +5,7 @@ const EmployeeForm = ({ onSave, disabled = false, employee, onCancel }) => {
     const entries = [...formData.entries()];
     const data = Object.fromEntries(entries);
     const employee = {
+      fullName: [data.firstName, data.middleName, data.lastName].filter(Boolean).join(" ").toLowerCase().trim(),
       name: {
         firstName: data.firstName,
         middleName: data.middleName,

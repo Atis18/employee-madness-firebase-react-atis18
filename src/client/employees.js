@@ -72,3 +72,19 @@ export const createEmployee = async (employee) => {
 
   return await response.json();
 };
+
+export const searchEmployees = async (search) => {
+  const formatted = search.toLowerCase().trim();
+
+  const url = `${getUriForList()}&orderBy=${encodeURIComponent('"fullName"')}&equalTo=${encodeURIComponent(`"${formatted}"`)}`;
+
+  const response = await fetch(url);
+  const employees = await response.json();
+
+  return Object.keys(employees ?? {})
+    .map((key) => ({
+      id: key,
+      ...employees[key],
+    }))
+    .toSorted((a, b) => _time(b.created) - _time(a.created));
+};

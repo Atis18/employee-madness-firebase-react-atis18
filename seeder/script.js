@@ -17,6 +17,7 @@ const getSeedData = async () => {
   ]);
 
   return names.map((name) => ({
+    fullName: name.toLowerCase().trim(),
     name: {
       firstName: name.split(" ")[0],
       middleName: name.split(" ").length > 2 ? name.split(" ").slice(1, -1) : null,
