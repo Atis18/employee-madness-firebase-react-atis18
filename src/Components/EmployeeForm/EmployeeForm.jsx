@@ -1,4 +1,23 @@
+import { useEffect, useState } from "react";
+import { getAllEquipments } from "../../client/equipments";
+
 const EmployeeForm = ({ onSave, disabled = false, employee, onCancel }) => {
+  const [equipments, setEquipments] = useState([]);
+  const [selectedEquipment, setSelectedEquipment] = useState({ name: employee?.equipment?.toLowerCase() || "" });
+
+  useEffect(() => {
+    let lock = false;
+
+    (async () => {
+      const list = await getAllEquipments();
+      if (!lock) setEquipments(list);
+    })();
+
+    return () => {
+      lock = true;
+    };
+  }, []);
+
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
@@ -12,7 +31,8 @@ const EmployeeForm = ({ onSave, disabled = false, employee, onCancel }) => {
         lastName: data.lastName
       },
       level: data.level,
-      position: data.position
+      position: data.position,
+      equipment: selectedEquipment
     };
     return onSave(employee);
   };
@@ -69,8 +89,16 @@ const EmployeeForm = ({ onSave, disabled = false, employee, onCancel }) => {
           defaultValue={employee ? employee.position : null}
           name="position"
           id="position"
-
+          required
         />
+      </div>
+
+      <div className="mb-3">
+        <label className="form-label">Equipment:</label>
+        <select className="form-control" name="sortBy" value={selectedEquipment.name} onChange={(e) => setSelectedEquipment(e.target.value)}>
+          <option value="N/A">None</option>
+          {equipments.map(equipment => (<option key={equipment.name} value={equipment.name.toLowerCase()}>{equipment.name}</option>))}
+        </select >
       </div>
 
       <div className="d-flex justify-content-start gap-3">

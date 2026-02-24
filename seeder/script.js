@@ -16,6 +16,13 @@ const getSeedData = async () => {
     loadJSON("./positions.json"),
   ]);
 
+  const equipments = ["jira", "mouse", "keyboard", "laptop", "N/A"]
+
+  function getRandomEquipment(arr) {
+    const randomIndex = Math.floor(Math.random() * arr.length);
+    return arr[randomIndex];
+  }
+
   return names.map((name) => ({
     fullName: name.toLowerCase().trim(),
     name: {
@@ -25,6 +32,7 @@ const getSeedData = async () => {
     },
     level: pick(levels),
     position: pick(positions),
+    equipment: getRandomEquipment(equipments),
     created: Date.now()
   }));
 };

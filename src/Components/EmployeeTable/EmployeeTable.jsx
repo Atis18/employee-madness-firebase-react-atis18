@@ -8,6 +8,7 @@ const EmployeeTable = ({ employees, onDelete }) => (
         <th>Name</th>
         <th>Level</th>
         <th>Position</th>
+        <th>Equipment</th>
         <th />
       </tr>
     </thead>
@@ -17,6 +18,7 @@ const EmployeeTable = ({ employees, onDelete }) => (
           <td>{`${employee.name.firstName} ${employee.name.middleName ?? ""} ${employee.name.lastName}`}</td>
           <td>{employee.level}</td>
           <td>{employee.position}</td>
+          <td>{employee.equipment}</td>
           <td>
             <div className="btn-group">
               <Link to={`/updateEmployee/${employee.id}`} className="btn btn-primary">
