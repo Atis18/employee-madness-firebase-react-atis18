@@ -71,6 +71,20 @@ const EmployeeList = () => {
     setSortConfig(updateConfig);
   };
 
+  const handleSort = (column) => {
+    if (sortConfig.sortBy === column) {
+      setSortConfig({
+        ...sortConfig,
+        order: sortConfig.order === "asc" ? "desc" : "asc",
+      });
+    } else {
+      setSortConfig({
+        sortBy: column,
+        order: "asc",
+      });
+    }
+  };
+
   useEffect(() => {
     if (!sortConfig.sortBy) return;
     const listToSort = filteredEmployees.length > 0 ? filteredEmployees : employees;
@@ -134,7 +148,7 @@ const EmployeeList = () => {
           Search
         </button>
       </form>
-      <EmployeeTable onDelete={deleteEmployee} employees={currentEmployees} />
+      <EmployeeTable onDelete={deleteEmployee} employees={currentEmployees} onSort={handleSort} sortConfig={sortConfig}/>
 
       <div className="d-flex justify-content-center mt-3 gap-2">
         <button
