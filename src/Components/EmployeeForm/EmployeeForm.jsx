@@ -3,7 +3,7 @@ import { getAllEquipments } from "../../client/equipments";
 
 const EmployeeForm = ({ onSave, disabled = false, employee, onCancel }) => {
   const [equipments, setEquipments] = useState([]);
-  const [selectedEquipment, setSelectedEquipment] = useState({ name: employee?.equipment?.toLowerCase() || "" });
+  const [selectedEquipment, setSelectedEquipment] = useState(employee?.equipment?.toLowerCase() || "N/A");
 
   useEffect(() => {
     let lock = false;
@@ -95,7 +95,7 @@ const EmployeeForm = ({ onSave, disabled = false, employee, onCancel }) => {
 
       <div className="mb-3">
         <label className="form-label">Equipment:</label>
-        <select className="form-control" name="sortBy" value={selectedEquipment.name} onChange={(e) => setSelectedEquipment(e.target.value)}>
+        <select className="form-control" name="sortBy" value={selectedEquipment} onChange={(e) => setSelectedEquipment(e.target.value)}>
           <option value="N/A">None</option>
           {equipments.map(equipment => (<option key={equipment.name} value={equipment.name.toLowerCase()}>{equipment.name}</option>))}
         </select >

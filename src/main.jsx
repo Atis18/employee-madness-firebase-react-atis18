@@ -33,7 +33,7 @@ const router = createBrowserRouter([
       { path: "/createEmployee", element: <Protected> <EmployeeCreator /> </Protected> },
       { path: "/updateEmployee/:id", element: <Protected> <EmployeeUpdater /> </Protected> },
 
-      { path: "/search", element: <Protected> <SearchList /> </Protected> },
+      { path: "/employees/:search?", element: <Protected> <SearchList /> </Protected> },
 
       { path: "/equipments", element: <Protected> <EquipmentList /> </Protected> },
       { path: "/createEquipment", element: <Protected> <EquipmentCreator /> </Protected> },

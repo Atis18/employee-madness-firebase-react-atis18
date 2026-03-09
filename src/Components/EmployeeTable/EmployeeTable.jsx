@@ -1,20 +1,20 @@
 import { Link } from "react-router-dom";
 import DeleteButton from "./components/DeleteButton";
 
-const EmployeeTable = ({ employees, onDelete, onSort, sortConfig }) => (
+const EmployeeTable = ({ employees, onDelete, onSort = () => { }, sortConfig = null }) => (
   <table className="table table-striped table-bordered">
     <thead>
       <tr>
         <th style={{ cursor: "pointer" }} onClick={() => onSort("name.lastName")}        >
-          Name{" "} {sortConfig.sortBy === "name.lastName" ? sortConfig.order === "asc" ? "▲" : "▼" : ""}
+          Name{" "} {sortConfig?.sortBy === "name.lastName" ? sortConfig?.order === "asc" ? "▲" : "▼" : ""}
         </th>
 
         <th style={{ cursor: "pointer" }} onClick={() => onSort("level")}        >
-          Level{" "} {sortConfig.sortBy === "level" ? sortConfig.order === "asc" ? "▲" : "▼" : ""}
+          Level{" "} {sortConfig?.sortBy === "level" ? sortConfig?.order === "asc" ? "▲" : "▼" : ""}
         </th>
 
         <th style={{ cursor: "pointer" }} onClick={() => onSort("position")}        >
-          Position{" "} {sortConfig.sortBy === "position" ? sortConfig.order === "asc" ? "▲" : "▼" : ""}
+          Position{" "} {sortConfig?.sortBy === "position" ? sortConfig?.order === "asc" ? "▲" : "▼" : ""}
         </th>
 
         <th>Equipment</th>
