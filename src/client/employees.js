@@ -88,3 +88,18 @@ export const searchEmployees = async (search) => {
     }))
     .toSorted((a, b) => _time(b.created) - _time(a.created));
 };
+
+export const employeesFilteredBySalary = async (salary) => {
+
+  const url = `${getUriForList()}&orderBy=${encodeURIComponent('"salary"')}&endAt=${`${salary}`}`;
+
+  const response = await fetch(url);
+  const employees = await response.json();
+
+  return Object.keys(employees ?? {})
+    .map((key) => ({
+      id: key,
+      ...employees[key],
+    }))
+    .toSorted((a, b) => _time(b.created) - _time(a.created));
+}

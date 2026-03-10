@@ -6,6 +6,7 @@ import Layout from "./Pages/Layout";
 import ErrorPage from "./Pages/ErrorPage";
 import Home from "./Pages/Home";
 import EmployeeList from "./Pages/EmployeeList";
+import Salaries from "./Pages/Salaries";
 import EmployeeCreator from "./Pages/EmployeeCreator";
 import EmployeeUpdater from "./Pages/EmployeeUpdater";
 import SearchList from "./Pages/SearchList";
@@ -32,6 +33,7 @@ const router = createBrowserRouter([
       { path: "/list", element: <Protected> <EmployeeList /> </Protected> },
       { path: "/createEmployee", element: <Protected> <EmployeeCreator /> </Protected> },
       { path: "/updateEmployee/:id", element: <Protected> <EmployeeUpdater /> </Protected> },
+      { path: "/salaries", element: <Protected> <Salaries /> </Protected> },
 
       { path: "/employees/:search?", element: <Protected> <SearchList /> </Protected> },
 

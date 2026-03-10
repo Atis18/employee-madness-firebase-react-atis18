@@ -2,7 +2,7 @@
   "rules": {
     "employees":{
       "list":{
-        ".indexOn":["fullName"]
+        ".indexOn":["fullName", "salary"]
       }
     },
     ".read": "auth.uid !== null",
