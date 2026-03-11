@@ -16,6 +16,7 @@ import EquipmentCreator from "./Pages/EquipmentCreator";
 import EquipmentUpdater from "./Pages/EquipmentUpdater";
 import SignIn from "./Pages/SignIn";
 import SignUp from "./Pages/SignUp";
+import Pets from "./Pages/Pets";
 
 import Protected from "./Components/Protected";
 import GuestsOnly from "./Components/GuestsOnly";
@@ -37,6 +38,8 @@ const router = createBrowserRouter([
       { path: "/salaries", element: <Protected> <Salaries /> </Protected> },
       { path: "/promotion", element: <Protected> <Promotion /> </Protected> },
 
+      { path: "/pets", element: <Protected> <Pets /> </Protected> },
+      
       { path: "/employees/:search?", element: <Protected> <SearchList /> </Protected> },
 
       { path: "/equipments", element: <Protected> <EquipmentList /> </Protected> },
