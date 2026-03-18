@@ -21,6 +21,16 @@ import AuthProvider from "./Context/AuthProvider";
 
 import "./index.scss";
 
+import Why from "./Pages/Why";
+
+/* Create a new page, where all employees are listed. Each employee is displayed on a “card”. A card contains the employee’s name and their position. The name is 1rem large and its color is red. The position is displayed under the name as normal text.
+
+Add a “Change Name” button to the employee card. If the user clicks on it, the name of the employee is changed to a text input field with the label “Name“. The input field is filled with the current name of the employee. A Save button is also displayed next to the input field.
+
+If the user clicks on the Save button, the new name is saved to the database, and if the saving is successful, the input field is changed back to the text version of the employee name.
+
+Hint: it is easier to implement the feature if the Employee is a separate component. */
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -32,6 +42,8 @@ const router = createBrowserRouter([
       { path: "/list", element: <Protected> <EmployeeList /> </Protected> },
       { path: "/createEmployee", element: <Protected> <EmployeeCreator /> </Protected> },
       { path: "/updateEmployee/:id", element: <Protected> <EmployeeUpdater /> </Protected> },
+
+      { path: "/why", element: <Protected> <Why /> </Protected> },
 
       { path: "/employees/:search?", element: <Protected> <SearchList /> </Protected> },
 
