@@ -5,6 +5,11 @@
         ".indexOn":["fullName"]
       }
     },
+    "equipments":{
+      "list":{
+        ".indexOn":["type"]
+      }
+    },
     ".read": "auth.uid !== null",
     ".write": "auth.uid !== null"
   }

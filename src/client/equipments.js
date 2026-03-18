@@ -23,6 +23,19 @@ export const getAllEquipments = async () => {
     .toSorted((a, b) => _time(b.created) - _time(a.created));
 };
 
+export const getAllEquipmentsFilter = async (filter) => {
+  const response = await fetch(`${getUriForList()}`);
+  const equipments = await response.json();
+
+  // Mapping the id-s into the response array
+  return Object.keys(equipments ?? {})
+    .map((key) => ({
+      id: key,
+      ...equipments[key],
+    }))
+    .toSorted((a, b) => _time(b.created) - _time(a.created));
+};
+
 export const getOneEquipmentById = async (id) => {
   const response = await fetch(getUriForOne(id));
   const equipment = await response.json();
