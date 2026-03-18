@@ -23,6 +23,7 @@ import "./index.scss";
 
 import Why from "./Pages/Why";
 import OfficeLibrary from "./Pages/OfficeLibrary";
+import EmployeeEquipmentAssigment from "./Pages/EmployeeEquipmentAssigment";
 
 /* Create a new page, where all employees are listed. Each employee is displayed on a “card”. A card contains the employee’s name and their position. The name is 1rem large and its color is red. The position is displayed under the name as normal text.
 
@@ -45,6 +46,7 @@ const router = createBrowserRouter([
       { path: "/updateEmployee/:id", element: <Protected> <EmployeeUpdater /> </Protected> },
       
       { path: "/library", element: <Protected> <OfficeLibrary /> </Protected> },
+      { path: "/equipmentAssignment", element: <Protected> <EmployeeEquipmentAssigment /> </Protected> },
       { path: "/why", element: <Protected> <Why /> </Protected> },
 
       { path: "/employees/:search?", element: <Protected> <SearchList /> </Protected> },
