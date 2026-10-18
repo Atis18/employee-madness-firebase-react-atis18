@@ -1,0 +1,14 @@
+services:
+  web:
+    build:
+      context: .
+      args:
+        VITE_FB_apiKey: ${VITE_FB_apiKey:?Set VITE_FB_apiKey in .env.local}
+        VITE_FB_authDomain: ${VITE_FB_authDomain:?Set VITE_FB_authDomain in .env.local}
+        VITE_FB_projectId: ${VITE_FB_projectId:?Set VITE_FB_projectId in .env.local}
+        VITE_FB_storageBucket: ${VITE_FB_storageBucket:?Set VITE_FB_storageBucket in .env.local}
+        VITE_FB_messagingSenderId: ${VITE_FB_messagingSenderId:?Set VITE_FB_messagingSenderId in .env.local}
+        VITE_FB_appId: ${VITE_FB_appId:?Set VITE_FB_appId in .env.local}
+        VITE_FB_DATABASE_URL: ${VITE_FB_DATABASE_URL:?Set VITE_FB_DATABASE_URL in .env.local}
+    ports:
+      - "8080:80"
