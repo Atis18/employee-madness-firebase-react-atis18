@@ -6,32 +6,31 @@ import { getAllEquipments } from "../client/equipments";
 const EquipmentList = () => {
   const [equipments, setEquipments] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const deleteEquipment = (id) =>
-    setEquipments((equipments) =>
-      equipments.filter((equipment) => equipment.id !== id)
-    );
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    let lock = false;
-
-    setLoading(true);
+    let cancelled = false;
     (async () => {
-      const list = await getAllEquipments();
-      if (!lock) {
-        setEquipments(list);
-        setLoading(false);
+      try {
+        const list = await getAllEquipments();
+        if (!cancelled) setEquipments(list);
+      } catch (err) {
+        if (!cancelled) setError(err.message || "Failed to load equipment.");
+      } finally {
+        if (!cancelled) setLoading(false);
       }
     })();
-
-    return () => {
-      lock = true;
-    };
+    return () => { cancelled = true; };
   }, []);
 
-  if (loading) return <Loading />;
+  const deleteEquipment = (id) => {
+    setEquipments((previous) => previous.filter((equipment) => equipment.id !== id));
+  };
 
-  return <EquipmentTable onDelete={deleteEquipment} equipments={equipments}/>
+  if (loading) return <Loading />;
+  if (error) return <div className="alert alert-danger" role="alert">{error}</div>;
+
+  return <EquipmentTable onDelete={deleteEquipment} equipments={equipments} />;
 };
 
 export default EquipmentList;

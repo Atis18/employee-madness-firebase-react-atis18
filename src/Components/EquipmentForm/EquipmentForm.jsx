@@ -4,6 +4,7 @@ const EquipmentForm = ({ onSave, disabled = false, equipment, onCancel }) => {
     const formData = new FormData(e.target);
     const entries = [...formData.entries()];
     const equipment = Object.fromEntries(entries);
+    equipment.amount = Number(equipment.amount);
     return onSave(equipment);
   };
 
@@ -38,7 +39,10 @@ const EquipmentForm = ({ onSave, disabled = false, equipment, onCancel }) => {
           defaultValue={equipment ? equipment.amount : null}
           name="amount"
           id="amount"
-
+          type="number"
+          min="0"
+          step="1"
+          required
         />
       </div>
 

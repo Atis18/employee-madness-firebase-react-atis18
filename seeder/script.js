@@ -1,5 +1,6 @@
 import { config } from "dotenv";
-import admin from "firebase-admin";
+import { cert, initializeApp } from "firebase-admin/app";
+import { getDatabase } from "firebase-admin/database";
 import fs from "node:fs/promises";
 
 const loadJSON = async (path) =>
@@ -40,12 +41,12 @@ const getSeedData = async () => {
 const main = async () => {
   const account = await loadJSON("./account.json");
 
-  admin.initializeApp({
-    credential: admin.credential.cert(account),
+  initializeApp({
+    credential: cert(account),
     databaseURL: process.env.VITE_FB_DATABASE_URL,
   });
 
-  const db = admin.database();
+  const db = getDatabase();
   const ref = db.ref("employees/list");
   await ref.remove();
 

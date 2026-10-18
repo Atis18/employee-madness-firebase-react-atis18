@@ -5,21 +5,27 @@ import { createEmployee } from "../client/employees";
 
 const EmployeeCreator = () => {
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleCreateEmployee = async (employee) => {
     setLoading(true);
-    await createEmployee(employee);
-    setLoading(false);
-    navigate("/list");
+    setError("");
+    try {
+      await createEmployee(employee);
+      navigate("/list");
+    } catch (err) {
+      setError(err.message || "Create failed.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
-    <EmployeeForm
-      disabled={loading}
-      onCancel={() => navigate("/")}
-      onSave={handleCreateEmployee}
-    />
+    <>
+      {error && <div className="alert alert-danger" role="alert">{error}</div>}
+      <EmployeeForm disabled={loading} onCancel={() => navigate("/list")} onSave={handleCreateEmployee} />
+    </>
   );
 };
 

@@ -21,8 +21,8 @@ const SignUp = () => {
         isSignIn={false}
         onSubmit={handleSubmit}
         onGoogleAuth={signInWithGoogle}
+        errorMessage={error}
       />
-      {error ? <div className="error-box">{error}</div> : null}
       <Link to="/sign-in">Sign In</Link>
     </main>
   );
