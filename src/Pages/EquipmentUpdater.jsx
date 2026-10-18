@@ -10,42 +10,47 @@ const EquipmentUpdater = () => {
   const [loading, setLoading] = useState(true);
   const [mutating, setMutating] = useState(false);
   const [equipment, setEquipment] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    let lock = false;
-
+    let cancelled = false;
     setLoading(true);
+    setError("");
     (async () => {
-      const data = await getOneEquipmentById(id);
-      if (!lock) {
-        setEquipment(data);
-        setLoading(false);
+      try {
+        const data = await getOneEquipmentById(id);
+        if (!cancelled) setEquipment(data);
+      } catch (err) {
+        if (!cancelled) setError(err.message || "Failed to load equipment.");
+      } finally {
+        if (!cancelled) setLoading(false);
       }
     })();
-
-    return () => {
-      lock = true;
-    };
+    return () => { cancelled = true; };
   }, [id]);
 
-  const handleUpdateEquipment = async (equipment) => {
+  const handleUpdateEquipment = async (data) => {
     setMutating(true);
-    await updateEquipment(id, equipment);
-    setMutating(false);
-    navigate("/equipments");
+    setError("");
+    try {
+      await updateEquipment(id, data);
+      navigate("/equipments");
+    } catch (err) {
+      setError(err.message || "Update failed.");
+    } finally {
+      setMutating(false);
+    }
   };
 
-  if (loading) {
-    return <Loading />;
-  }
+  if (loading) return <Loading />;
+  if (!equipment && !error) return <div className="alert alert-warning">Equipment not found.</div>;
+  if (!equipment) return <div className="alert alert-danger" role="alert">{error}</div>;
 
   return (
-    <EquipmentForm
-      equipment={equipment}
-      onSave={handleUpdateEquipment}
-      disabled={mutating}
-      onCancel={() => navigate("/")}
-    />
+    <>
+      {error && <div className="alert alert-danger" role="alert">{error}</div>}
+      <EquipmentForm equipment={equipment} onSave={handleUpdateEquipment} disabled={mutating} onCancel={() => navigate("/equipments")} />
+    </>
   );
 };
 

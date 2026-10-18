@@ -3,14 +3,21 @@ import { getAllEquipments } from "../../client/equipments";
 
 const EmployeeForm = ({ onSave, disabled = false, employee, onCancel }) => {
   const [equipments, setEquipments] = useState([]);
-  const [selectedEquipment, setSelectedEquipment] = useState(employee?.equipment?.toLowerCase() || "N/A");
+  const [selectedEquipment, setSelectedEquipment] = useState(
+    !employee?.equipment || employee.equipment.toLowerCase() === "n/a" ? "N/A" : employee.equipment.toLowerCase()
+  );
+  const [equipmentError, setEquipmentError] = useState("");
 
   useEffect(() => {
     let lock = false;
 
     (async () => {
-      const list = await getAllEquipments();
-      if (!lock) setEquipments(list);
+      try {
+        const list = await getAllEquipments();
+        if (!lock) setEquipments(list);
+      } catch (err) {
+        if (!lock) setEquipmentError(err.message || "Failed to load equipment options.");
+      }
     })();
 
     return () => {
@@ -95,7 +102,8 @@ const EmployeeForm = ({ onSave, disabled = false, employee, onCancel }) => {
 
       <div className="mb-3">
         <label className="form-label">Equipment:</label>
-        <select className="form-control" name="sortBy" value={selectedEquipment} onChange={(e) => setSelectedEquipment(e.target.value)}>
+        {equipmentError && <div className="text-danger" role="alert">{equipmentError}</div>}
+        <select className="form-control" name="equipment" value={selectedEquipment} onChange={(e) => setSelectedEquipment(e.target.value)}>
           <option value="N/A">None</option>
           {equipments.map(equipment => (<option key={equipment.name} value={equipment.name.toLowerCase()}>{equipment.name}</option>))}
         </select >

@@ -10,42 +10,47 @@ const EmployeeUpdater = () => {
   const [loading, setLoading] = useState(true);
   const [mutating, setMutating] = useState(false);
   const [employee, setEmployee] = useState(null);
+  const [error, setError] = useState("");
 
   useEffect(() => {
-    let lock = false;
-
+    let cancelled = false;
     setLoading(true);
+    setError("");
     (async () => {
-      const data = await getOneEmployeeById(id);
-      if (!lock) {
-        setEmployee(data);
-        setLoading(false);
+      try {
+        const data = await getOneEmployeeById(id);
+        if (!cancelled) setEmployee(data);
+      } catch (err) {
+        if (!cancelled) setError(err.message || "Failed to load employee.");
+      } finally {
+        if (!cancelled) setLoading(false);
       }
     })();
-
-    return () => {
-      lock = true;
-    };
+    return () => { cancelled = true; };
   }, [id]);
 
-  const handleUpdateEmployee = async (employee) => {
+  const handleUpdateEmployee = async (data) => {
     setMutating(true);
-    await updateEmployee(id, employee);
-    setMutating(false);
-    navigate("/list");
+    setError("");
+    try {
+      await updateEmployee(id, data);
+      navigate("/list");
+    } catch (err) {
+      setError(err.message || "Update failed.");
+    } finally {
+      setMutating(false);
+    }
   };
 
-  if (loading) {
-    return <Loading />;
-  }
+  if (loading) return <Loading />;
+  if (!employee && !error) return <div className="alert alert-warning">Employee not found.</div>;
+  if (!employee) return <div className="alert alert-danger" role="alert">{error}</div>;
 
   return (
-    <EmployeeForm
-      employee={employee}
-      onSave={handleUpdateEmployee}
-      disabled={mutating}
-      onCancel={() => navigate("/")}
-    />
+    <>
+      {error && <div className="alert alert-danger" role="alert">{error}</div>}
+      <EmployeeForm employee={employee} onSave={handleUpdateEmployee} disabled={mutating} onCancel={() => navigate("/list")} />
+    </>
   );
 };
 

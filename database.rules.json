@@ -1,11 +1,11 @@
 {
   "rules": {
-    "employees":{
-      "list":{
-        ".indexOn":["fullName"]
+    ".read": "auth != null",
+    ".write": "auth != null",
+    "employees": {
+      "list": {
+        ".indexOn": ["fullName"]
       }
-    },
-    ".read": "auth.uid !== null",
-    ".write": "auth.uid !== null"
+    }
   }
 }
