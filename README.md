@@ -31,7 +31,7 @@ A React-based employee and company equipment management application built as a C
 
 | Area | Technology |
 | --- | --- |
-| Frontend | React 18, JavaScript, React Router 6, Vite 5 |
+| Frontend | React 18, JavaScript, React Router 7, Vite 8 |
 | UI | Bootstrap 5, Sass |
 | Authentication | Firebase Authentication (Google and email/password) |
 | Data | Firebase Realtime Database via its REST API |
